@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 /**
  * @author TODO: please add student ID and name here
+ * B0344252 ­J¯øªÚ
  * Try to write some comments for your codes (methods, 10 points)
  */
 public class HW3 {
