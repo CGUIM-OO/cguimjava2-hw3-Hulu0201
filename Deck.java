@@ -1,18 +1,18 @@
 import java.util.ArrayList;
-
+import java.util.Random;
 
 public class Deck{
-	private ArrayList<Card> cards;  //private 才能避免牌被更動
+	private ArrayList<Card> cards; //private 才能避免牌被更動
+	public  ArrayList<Card> usedCard;
+	public  int nUsed; 
 	//TODO: Please implement the constructor (30 points)
 	public Deck(int nDeck){   
 		cards = new ArrayList<Card>();
 		for(int i=0;i<nDeck ;i++){			//幾副牌
-			for(int j=1;j<=4;j++){			//花色
+			for (Card.Suit s : Card.Suit.values()){		//花色 Enhance For Loop
 				for(int k=1;k<=13;k++){		//大小
-					//System.out.println(j+","+k);
-					Card card = new Card(j,k);
+					Card card = new Card(s,k); //
 					cards.add(card);		//將每一張牌放進ArrayList中
-					//System.out.println(card); Wrong   //Card@7d4991ad
 				}
 			}
 		}
@@ -22,6 +22,7 @@ public class Deck{
 		//Card card=new Card(1,1); ->means new card as clubs ace
 		//cards.add(card);
 		//Sample code end
+		shuffle();//最後呼叫shuffle() method
 	}	
 	//TODO: Please implement the method to print all cards on screen (10 points)
 	public void printDeck(){
@@ -29,12 +30,38 @@ public class Deck{
 		for(int i=0;i < cards.size();i++){
 			Card printdeck = cards.get(i);
 			printdeck.printCard();
-			System.out.println(cards.size());
+			System.out.println(cards.size()); //檢查總共牌數
 		}
-	
 		//TODO: please implement and reuse printCard method in Card class (5 points)
-	
-		
+	}
+	public void shuffle(){
+		usedCard = new ArrayList<Card>(); 
+		Random rnd = new Random();
+		for(int i=0;i<usedCard.size();i++){
+			int j = rnd.nextInt(51+1);   
+			Card temp = usedCard.get(i);
+			cards.set(i,usedCard.get(j));
+			usedCard.set(j,temp);
+		}
+		usedCard = new ArrayList<Card>(); 
+		nUsed = 0;						  //reset
+	}
+	public Card getOneCard(){   //回傳Card object
+		Random rnd = new Random();
+		if(nUsed == 52){ //要檢查沒牌了 (牌都發完了) 怎麼辦？ shuffle() ！
+			shuffle();
+		}
+		usedCard = new ArrayList<Card>(); 
+		int j = rnd.nextInt(51+1);
+		Card newcard = cards.get(j);
+		newcard.getSuit();
+		newcard.getRank();
+		usedCard.add(newcard);//發出去的牌紀錄在ArrayList usedCard
+		//發了幾張牌？紀錄在private int nUsed;
+		//移動牌的index
+		nUsed +=1;
+		return newcard; 
+		 
 	}
 	public ArrayList<Card> getAllCards(){
 		return cards;
