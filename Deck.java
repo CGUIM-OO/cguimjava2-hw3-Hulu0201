@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Deck{
-	private ArrayList<Card> cards; //private 才能避免牌被更動
+	private ArrayList<Card> cards; 
 	public  ArrayList<Card> usedCard;
 	public  int nUsed; 
 	//TODO: Please implement the constructor (30 points)
@@ -36,15 +36,14 @@ public class Deck{
 	}
 	public void shuffle(){
 		usedCard = new ArrayList<Card>(); 
-		Random rnd = new Random();
-		for(int i=0;i<usedCard.size();i++){
-			int j = rnd.nextInt(51+1);   
-			Card temp = usedCard.get(i);
-			cards.set(i,usedCard.get(j));
-			usedCard.set(j,temp);
-		}
-		usedCard = new ArrayList<Card>(); 
-		nUsed = 0;						  //reset
+			Random rnd = new Random();
+			int j = rnd.nextInt(51+1);
+			Card temp = cards.get(j);
+			cards.set(j,cards.get(0));
+			cards.set(0, temp);
+			  //reset
+		nUsed = 0;				
+		usedCard = new ArrayList<Card>(); 	
 	}
 	public Card getOneCard(){   //回傳Card object
 		Random rnd = new Random();
@@ -57,11 +56,13 @@ public class Deck{
 		newcard.getSuit();
 		newcard.getRank();
 		usedCard.add(newcard);//發出去的牌紀錄在ArrayList usedCard
+		cards.remove(j);
+		nUsed +=1;
+		cards.add(j,newcard);
 		//發了幾張牌？紀錄在private int nUsed;
 		//移動牌的index
-		nUsed +=1;
+		
 		return newcard; 
-		 
 	}
 	public ArrayList<Card> getAllCards(){
 		return cards;
