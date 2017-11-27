@@ -32,7 +32,7 @@ public class Card {
 				break;
 			}
 			switch (rank){
-			case 1: rank_s = "1"; break;
+			case 1: rank_s = "Ace"; break;
 			case 2: rank_s = "2"; break;
 			case 3: rank_s = "3"; break;
 			case 4: rank_s = "4"; break;
@@ -46,7 +46,6 @@ public class Card {
 			case 12: rank_s = "12"; break;
 			case 13: rank_s	= "13"; break;
 			}	
-			
 			System.out.println(this.suit+","+rank_s);
 			
 		}
